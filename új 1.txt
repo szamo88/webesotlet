@@ -1,0 +1,21 @@
+      public async Task<IActionResult> Index(string MegnevezesKeres, string BeszallitoKeres)
+        {
+            Keres keres = new Keres();
+            var adatok = _context.Termek.Select(x => x);
+
+            if (!string.IsNullOrEmpty(MegnevezesKeres))
+            {
+                keres.MegnevezesKeres = MegnevezesKeres;
+                adatok = adatok.Where(x => x.Megnevezes.Contains(MegnevezesKeres));
+            }
+            if (!string.IsNullOrEmpty(BeszallitoKeres))
+            {
+                keres.BeszallitoKeres = BeszallitoKeres;
+                adatok = adatok.Where(x => x.Beszallito == BeszallitoKeres);
+            }
+
+            keres.TermekLista = await adatok.ToListAsync();
+            keres.BeszallitoLista = new SelectList(await _context.Termek.Select(x => x.Beszallito).Distinct().ToListAsync());
+
+            return View(keres);
+        }

@@ -1,0 +1,16 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Raktar0514.Models
+{
+    public class Keres
+    {
+        public string MegnevezesKeres { get; set; }
+        public string BeszallitoKeres { get; set; }
+        public List<Termek> TermekLista { get; set; }
+        public SelectList BeszallitoLista { get; set; }
+    }
+}
